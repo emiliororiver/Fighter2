@@ -13,8 +13,9 @@ public class Coin : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))      // Make sure your player has the "Player" tag
+        if (other.CompareTag("Player"))     // Make sure your player has the "Player" tag
         {
+            ScoreManager scoreManager = FindObjectOfType<ScoreManager>(true);
             if (scoreManager != null)
                 scoreManager.AddScore(1);    // Add 1 to score
 

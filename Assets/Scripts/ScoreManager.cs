@@ -13,6 +13,7 @@ public class ScoreManager : MonoBehaviour
 
     public void AddScore(int amount)
     {
+        Debug.Log("AddScore called!");
         score += amount;
         UpdateScoreUI();
     }

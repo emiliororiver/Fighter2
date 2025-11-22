@@ -106,7 +106,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Coin
   lifeTime: 2
-  scoreManager: {fileID: 7904815241888440531, guid: 6371f716b25d74f48b3fdd6917e065c7, type: 3}
+  scoreManager: {fileID: 0}
 --- !u!50 &-3173219726028635001
 Rigidbody2D:
   serializedVersion: 5

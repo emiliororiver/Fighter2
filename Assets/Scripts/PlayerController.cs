@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
     public int lives;
     private float speed;
 
@@ -16,6 +15,9 @@ public class PlayerController : MonoBehaviour
     public GameObject bulletPrefab;
     public GameObject explosionPrefab;
 
+    // Reference to PlayerShield script
+    private PlayerShield shield;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +25,13 @@ public class PlayerController : MonoBehaviour
         lives = 3;
         speed = 5.0f;
         gameManager.ChangeLivesText(lives);
+
+        // Get the PlayerShield component
+        shield = GetComponent<PlayerShield>();
+        if (shield == null)
+        {
+            Debug.LogError("No PlayerShield script found on player!");
+        }
     }
 
     // Update is called once per frame
@@ -34,10 +43,16 @@ public class PlayerController : MonoBehaviour
 
     public void LoseALife()
     {
-        //lives = lives - 1;
-        //lives -= 1;
+        // If shield is active, block damage
+        if (shield != null && shield.IsShielded())
+        {
+            Debug.Log("Shield blocked damage!");
+            return;
+        }
+
         lives--;
         gameManager.ChangeLivesText(lives);
+
         if (lives == 0)
         {
             Instantiate(explosionPrefab, transform.position, Quaternion.identity);
@@ -64,7 +79,7 @@ public class PlayerController : MonoBehaviour
 
         if (transform.position.y > verticalScreenSize)
         {
-        transform.position = new Vector3(transform.position.x, verticalScreenSize, 0);
+            transform.position = new Vector3(transform.position.x, verticalScreenSize, 0);
         }
 
         if (transform.position.x <= -horizontalScreenSize || transform.position.x > horizontalScreenSize)
@@ -74,7 +89,7 @@ public class PlayerController : MonoBehaviour
 
         if (transform.position.y < -verticalScreenSize)
         {
-        transform.position = new Vector3(transform.position.x, -verticalScreenSize, 0);
+            transform.position = new Vector3(transform.position.x, -verticalScreenSize, 0);
         }
     }
 }
